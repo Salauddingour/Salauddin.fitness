@@ -34,7 +34,10 @@ document.getElementById("getWeather").addEventListener("click", () => {
 
 // 🧮 BMI Logic — using feet.inches input
 document.getElementById("calculateBMI").addEventListener("click", () => {
-  const heightFeet = parseFloat(document.getElementById("heightFeet").value);
+  let heightInput = document.getElementById("heightFeet").value.trim();
+let parts = heightInput.split(".");
+let feet = parseInt(parts[0]) || 0;
+let inches = parseInt(parts[1]) || 0;
   const weight = parseFloat(document.getElementById("weight").value);
 
   if (!heightFeet || !weight || heightFeet <= 0 || weight <= 0) {
@@ -43,7 +46,7 @@ document.getElementById("calculateBMI").addEventListener("click", () => {
     return;
   }
 
-  const totalInches = heightFeet * 12;
+  const totalInches = (feet * 12) + inches;
   const heightMeters = totalInches * 0.0254;
 
   const bmi = (weight / (heightMeters * heightMeters)).toFixed(1);
